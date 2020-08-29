@@ -24,7 +24,10 @@ Footnotes:
       * (M^(3^0))^1, (M^(3^0))^2
       * (M^(3^1))^1, (M^(3^1))^2
   
-   <b>cache size :</b> log(base, inputRange) * (base-1)
+   <b>cache size :</b> log(base, inputRange) * (base-1)     
+   https://www.wolframalpha.com/input/?i=plot+log%28y%2C+x%29+*+%28y+-+1%29%2C+10000%3C%3Dx%3C%3D1000000%2C+1%3Cy%3C20
+   
+   <b>cache population time :</b> exact growth as cache size
   
    <b>cache performance :</b> log(base, input)
    
