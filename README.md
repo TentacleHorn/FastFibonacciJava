@@ -1,5 +1,5 @@
 # FastFibonacciJava
 
-This is my version of a fibonacci generator.
-using the algorithm "fast doubling".
-implemented in JAVA language level 10.
+This is my fast fibonacci generator.
+
+implemented in Java using the "fast doubling" algorithm.
