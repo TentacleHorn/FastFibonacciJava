@@ -21,7 +21,7 @@ public class TestFibonacci {
     static void testAllSetups(BigInteger firstElement, BigInteger secondElement, int testSize, boolean printing) {
         FastFibonacci generator = new FastFibonacci(firstElement, secondElement);
         FastFibonacci generatorWithExponentCache = new FastFibonacci(firstElement, secondElement, mCache, 0);
-        FastFibonacci generatorWithExponentCacheAndKCache = new FastFibonacci(firstElement, secondElement, mCache, 11);
+        FastFibonacci generatorWithExponentCacheAndKCache = new FastFibonacci(firstElement, secondElement, mCache, 4);
 
         testSetup(generator, "regular", firstElement, secondElement, testSize, printing);
         testSetup(generatorWithExponentCache, "with exponentCache", firstElement, secondElement, testSize, printing);
@@ -44,17 +44,17 @@ public class TestFibonacci {
     }
 
     @Test
-    void first100() {
+    void regularFib() {
         testAllSetups(BigInteger.ZERO, BigInteger.ONE, 100, true);
     }
 
     @Test
-    void first10Negative() {
+    void negative() {
         testAllSetups(BigInteger.ZERO, BigInteger.ONE.negate(), 100, true);
     }
 
     @Test
-    void differentIntiailSequence() {
+    void differentSequence() {
         testAllSetups(BigInteger.TWO, BigInteger.TEN, 100, true);
     }
 

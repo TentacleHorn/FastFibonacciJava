@@ -8,6 +8,7 @@ import java.math.BigInteger;
 public class FastFibonacci extends FibonacciGenerator {
     private MatrixExponentCacheI matrixExponentCache;
     private FibMatrix[] kBitsCache;
+    private int kBits;
 
     public FastFibonacci() {
         this(new MatrixExponentCache(0), 0);
@@ -37,11 +38,8 @@ public class FastFibonacci extends FibonacciGenerator {
     }
 
     private void initializeKBitsCache(int bitLength) {
-        if (bitLength <= 0) {
-            kBitsCache = new FibMatrix[0];
-            return;
-        }
-        int size = (int) Math.pow(2, bitLength);
+        kBits = Math.max(bitLength, 0);
+        int size = (int) Math.pow(2, kBits);
         kBitsCache = new FibMatrix[size];
 
         FibMatrix current = FibMatrix.firstMatrix();
@@ -56,15 +54,13 @@ public class FastFibonacci extends FibonacciGenerator {
      */
     @Override
     public BigInteger getNthElement(int index) {
-        if (index < 2) {
-            return index == 0 ? firstElement : secondElement;
-        }
-        if (index == 2) {
-            return firstElement.add(secondElement);
-        }
+        if (index < 2) return index == 0 ? firstElement : secondElement;
+        if (index == 2) return firstElement.add(secondElement);
+
         int seqIndex = index - 3;
-        FibMatrix matrix = seqIndex < kBitsCache.length ? kBitsCache[seqIndex] : FibMatrix.firstMatrix();
-        String bin = Integer.toBinaryString(seqIndex < kBitsCache.length ? 0: seqIndex);
+        int firstKBits = seqIndex & (1 << kBits) - 1; // extract first K bits
+        FibMatrix matrix = kBitsCache[firstKBits];
+        String bin = Integer.toBinaryString(seqIndex - firstKBits);
         for (int i = 0; i < bin.length(); i++) {
             if (bin.charAt(bin.length() - 1 - i) == '1') {
                 matrix = matrix.mult(matrixExponentCache.getNthMatrix(i));
